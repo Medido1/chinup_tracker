@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="./script.js" defer></script>
+  <title>Chin up Counter</title>
+</head>
+<body>
+  <header class="header">
+    <h1>Chin ups</h1>
+  </header>
+  <main class="main">
+    <div class="container">
+      <div class="input_container">
+        <label for="chinups">How much did you do today?</label>
+        <input type="number" step="1" min="0" max="100"
+         oninput="this.value = this.value.replace(/[^0-9]/g, '');" id="chinups"
+        >
+      </div>
+      <button class="btn">Submit</button>
+      <div class="result_container">
+        <div class="text_container">
+          <p class="current_number"></p>
+          <p>/100</p>
+        </div>
+        <div class="progress_container">
+          <div class="bar_container">
+            <div class="bar"></div>
+          </div>
+          <p class="percentage">0%</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
