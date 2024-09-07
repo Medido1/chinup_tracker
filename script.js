@@ -3,6 +3,7 @@ const submitBtn = document.querySelector(".btn");
 const currentNumber = document.querySelector(".current_number");
 const progressBar = document.querySelector(".bar");
 const percentage = document.querySelector(".percentage");
+const resetBtn = document.querySelector(".reset");
 
 let totalDone = Number(localStorage.getItem("totalDone")) || 0;
 currentNumber.textContent = totalDone;
@@ -49,4 +50,14 @@ function updateCount() {
   myInput.value = "";
 }
 
+function resetResults() {
+  totalDone = 0;
+  localStorage.setItem("totalDone", totalDone);
+  currentNumber.textContent = totalDone;
+  percentage.textContent = `${totalDone}%`;
+  progressBar.style.width = 0;
+  myInput.value = "";
+}
+
 submitBtn.addEventListener("click", updateCount);
+resetBtn.addEventListener("click", resetResults);
