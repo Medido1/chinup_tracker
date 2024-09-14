@@ -88,23 +88,24 @@ input:focus {
   display: flex;
   gap: .25rem;
 }
-
 .bar_container {
   height: 1rem;
   background-color: #e0f2fe;
   width: 50vw;
   border-radius: 100vmax;
 }
-
 .bar {
   width: 0;
   background-color: #7dd3fc;
   height: 1rem;
   border-radius: 100vmax;
 }
-
 .progress_container {
   display: flex;
   gap: .5rem;
+}
+.btn.reset {
+  background-color: red;
+  color: white;
 }
 
