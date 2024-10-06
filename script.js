@@ -12,6 +12,13 @@ const pushupsProgressBar = document.querySelector(".bar.pushups");
 const pushupsPercentage = document.querySelector(".percentage.pushups");
 const pushupsReset = document.querySelector(".reset.pushups");
 
+const gripsInput = document.getElementById("grips");
+const gripsSubmit = document.querySelector(".btn.grips");
+const gripscurrentNumber = document.querySelector(".current_number.grips");
+const gripsProgressBar = document.querySelector(".bar.grips");
+const gripsPercentage = document.querySelector(".percentage.grips");
+const gripsReset = document.querySelector(".reset.grips");
+
 let chinupsTotal = Number(localStorage.getItem("chinupsTotal")) || 0;
 chinupsCurrentNumber.textContent = chinupsTotal;
 chinupsPercentage.textContent = `${chinupsTotal}%`
@@ -21,6 +28,11 @@ let pushupsTotal = Number(localStorage.getItem("pushupsTotal")) || 0;
 pushupscurrentNumber.textContent = pushupsTotal;
 pushupsPercentage.textContent = `${pushupsTotal}%`;
 pushupsProgressBar.style.width = `${pushupsTotal}%`;
+
+let gripsTotal = Number(localStorage.getItem("gripsTotal")) || 0;
+gripscurrentNumber.textContent = gripsTotal;
+gripsPercentage.textContent = `${gripsTotal}%`;
+gripsProgressBar.style.width = `${gripsTotal}%`;
 
 
 function checkSucess(value) {
@@ -54,7 +66,9 @@ function updateCount(input, type) {
   if (type === "pushups") {
     updatePushUps();
   }
-  
+  if (type === "grips") {
+    updategrips();
+  }
 }
 
 function updateChinUps() {
@@ -89,6 +103,22 @@ function updatePushUps() {
   pushupsInput.value = "";
 }
 
+function updategrips() {
+  let todayInput = Number(gripsInput.value);
+  gripsTotal = gripsTotal + todayInput;
+  localStorage.setItem("gripsTotal", gripsTotal);
+  if (checkSucess(gripsTotal)){
+    gripsPercentage.textContent = `${gripsTotal}%`;
+    fillProgressBar(gripsTotal, gripsProgressBar)
+    gripsInput.value = "";
+    return;
+  }
+  gripscurrentNumber.textContent = gripsTotal;
+  gripsPercentage.textContent = `${gripsTotal}%`;
+  fillProgressBar(gripsTotal, gripsProgressBar);
+  gripsInput.value = "";
+}
+
 function resetChinups() {
   chinupsTotal = 0;
   localStorage.setItem("chinupsTotal", chinupsTotal);
@@ -107,6 +137,15 @@ function resetPushups() {
   pushupsInput.value = "";
 }
 
+function resetgrips() {
+  gripsTotal = 0;
+  localStorage.setItem("gripsTotal", gripsTotal);
+  gripscurrentNumber.textContent = gripsTotal;
+  gripsPercentage.textContent = `${gripsTotal}%`;
+  gripsProgressBar.style.width = 0;
+  gripsInput.value = "";
+}
+
 chinupsSubmit.addEventListener("click", () => {
   updateCount(chinupsInput, "chinups");
 });
@@ -116,3 +155,8 @@ pushupsSubmit.addEventListener("click", () => {
   updateCount(pushupsInput, "pushups");
 })
 pushupsReset.addEventListener("click", resetPushups);
+
+gripsSubmit.addEventListener("click", () => {
+  updateCount(gripsInput, "grips")
+})
+gripsReset.addEventListener("click", resetgrips)

@@ -56,6 +56,28 @@
         <button class="btn reset pushups">Reset</button>
       </div>
     </div>
+    <div class="container">
+      <div class="input_container">
+        <label for="grips">How many Grips?</label>
+        <input type="number" step="1" min="0" max="100"
+         oninput="this.value = this.value.replace(/[^0-9]/g, '');" id="grips"
+        >
+        <button class="btn grips">Submit</button>
+        <div class="result_container">
+          <div class="text_container">
+            <p class="current_number grips"></p>
+            <p>/100</p>
+          </div>
+          <div class="progress_container">
+            <div class="bar_container">
+              <div class="bar grips"></div>
+            </div>
+            <p class="percentage grips">0%</p>
+          </div>
+        </div>
+        <button class="btn reset grips">Reset</button>
+      </div>
+    </div>
   </main>
 </body>
 </html>
