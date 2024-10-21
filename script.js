@@ -19,6 +19,13 @@ const gripsProgressBar = document.querySelector(".bar.grips");
 const gripsPercentage = document.querySelector(".percentage.grips");
 const gripsReset = document.querySelector(".reset.grips");
 
+const squatsInput = document.getElementById("squats");
+const squatsSubmit = document.querySelector(".btn.squats");
+const squatscurrentNumber = document.querySelector(".current_number.squats");
+const squatsProgressBar = document.querySelector(".bar.squats");
+const squatsPercentage = document.querySelector(".percentage.squats");
+const squatsReset = document.querySelector(".reset.squats");
+
 let chinupsTotal = Number(localStorage.getItem("chinupsTotal")) || 0;
 chinupsCurrentNumber.textContent = chinupsTotal;
 chinupsPercentage.textContent = `${chinupsTotal}%`
@@ -33,6 +40,11 @@ let gripsTotal = Number(localStorage.getItem("gripsTotal")) || 0;
 gripscurrentNumber.textContent = gripsTotal;
 gripsPercentage.textContent = `${gripsTotal}%`;
 gripsProgressBar.style.width = `${gripsTotal}%`;
+
+let squatsTotal = Number(localStorage.getItem("squatsTotal")) || 0;
+squatscurrentNumber.textContent = squatsTotal;
+squatsPercentage.textContent = `${squatsTotal}%`;
+squatsProgressBar.style.width = `${squatsTotal}%`;
 
 
 function checkSucess(value) {
@@ -68,6 +80,9 @@ function updateCount(input, type) {
   }
   if (type === "grips") {
     updategrips();
+  }
+  if (type === "squats") {
+    updateSquats();
   }
 }
 
@@ -119,6 +134,22 @@ function updategrips() {
   gripsInput.value = "";
 }
 
+function updateSquats() {
+  let todayInput = Number(squatsInput.value);
+  squatsTotal = squatsTotal + todayInput;
+  localStorage.setItem("squatsTotal", squatsTotal);
+  if (checkSucess(squatsTotal)){
+    squatsPercentage.textContent = `${squatsTotal}%`;
+    fillProgressBar(squatsTotal, squatsProgressBar)
+    squatsInput.value = "";
+    return;
+  }
+  squatscurrentNumber.textContent = squatsTotal;
+  squatsPercentage.textContent = `${squatsTotal}%`;
+  fillProgressBar(squatsTotal, squatsProgressBar);
+  squatsInput.value = "";
+}
+
 function resetChinups() {
   chinupsTotal = 0;
   localStorage.setItem("chinupsTotal", chinupsTotal);
@@ -146,6 +177,15 @@ function resetgrips() {
   gripsInput.value = "";
 }
 
+function resetSquats() {
+  squatsTotal = 0;
+  localStorage.setItem("squatsTotal", squatsTotal);
+  squatscurrentNumber.textContent = squatsTotal;
+  squatsPercentage.textContent = `${squatsTotal}%`;
+  squatsProgressBar.style.width = 0;
+  squatsInput.value = "";
+}
+
 chinupsSubmit.addEventListener("click", () => {
   updateCount(chinupsInput, "chinups");
 });
@@ -160,3 +200,9 @@ gripsSubmit.addEventListener("click", () => {
   updateCount(gripsInput, "grips")
 })
 gripsReset.addEventListener("click", resetgrips)
+
+squatsSubmit.addEventListener("click", () => {
+  updateCount(squatsInput, "squats");
+})
+squatsReset.addEventListener("click", resetSquats)
+
