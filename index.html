@@ -100,6 +100,28 @@
         <button class="btn reset squats">Reset</button>
       </div>
     </div>
+    <div class="container">
+      <div class="input_container">
+        <label for="dips">How many dips?</label>
+        <input type="number" step="1" min="0" max="100"
+         oninput="this.value = this.value.replace(/[^0-9]/g, '');" id="dips"
+        >
+        <button class="btn dips">Submit</button>
+        <div class="result_container">
+          <div class="text_container">
+            <p class="current_number dips"></p>
+            <p>/100</p>
+          </div>
+          <div class="progress_container">
+            <div class="bar_container">
+              <div class="bar dips"></div>
+            </div>
+            <p class="percentage dips">0%</p>
+          </div>
+        </div>
+        <button class="btn reset dips">Reset</button>
+      </div>
+    </div>
   </main>
 </body>
 </html>

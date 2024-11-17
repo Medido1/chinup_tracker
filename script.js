@@ -26,6 +26,13 @@ const squatsProgressBar = document.querySelector(".bar.squats");
 const squatsPercentage = document.querySelector(".percentage.squats");
 const squatsReset = document.querySelector(".reset.squats");
 
+const dipsInput = document.getElementById("dips");
+const dipsSubmit = document.querySelector(".btn.dips");
+const dipsCurrentNumber = document.querySelector(".current_number.dips");
+const dipsProgressBar = document.querySelector(".bar.dips");
+const dipsPercentage = document.querySelector(".percentage.dips");
+const dipsReset = document.querySelector(".reset.dips");
+
 let chinupsTotal = Number(localStorage.getItem("chinupsTotal")) || 0;
 chinupsCurrentNumber.textContent = chinupsTotal;
 chinupsPercentage.textContent = `${chinupsTotal}%`
@@ -45,6 +52,11 @@ let squatsTotal = Number(localStorage.getItem("squatsTotal")) || 0;
 squatscurrentNumber.textContent = squatsTotal;
 squatsPercentage.textContent = `${squatsTotal}%`;
 squatsProgressBar.style.width = `${squatsTotal}%`;
+
+let dipsTotal = Number(localStorage.getItem("dipsTotal")) || 0;
+dipsCurrentNumber.textContent = dipsTotal;
+dipsPercentage.textContent = `${dipsTotal}%`;
+dipsProgressBar.style.width = `${dipsTotal}%`;
 
 
 function checkSucess(value) {
@@ -83,6 +95,9 @@ function updateCount(input, type) {
   }
   if (type === "squats") {
     updateSquats();
+  }
+  if (type === "dips") {
+    updateDips();
   }
 }
 
@@ -150,6 +165,22 @@ function updateSquats() {
   squatsInput.value = "";
 }
 
+function updateDips() {
+  let todayInput = Number(dipsInput.value);
+  dipsTotal = dipsTotal + todayInput;
+  localStorage.setItem("dipsTotal", dipsTotal);
+  if (checkSucess(dipsTotal)){
+    dipsPercentage.textContent = `${dipsTotal}%`;
+    fillProgressBar(dipsTotal, dipsProgressBar)
+    dipsInput.value = "";
+    return;
+  }
+  dipsCurrentNumber.textContent = dipsTotal;
+  dipsPercentage.textContent = `${dipsTotal}%`;
+  fillProgressBar(dipsTotal, dipsProgressBar);
+  dipsInput.value = "";
+}
+
 function resetChinups() {
   chinupsTotal = 0;
   localStorage.setItem("chinupsTotal", chinupsTotal);
@@ -186,6 +217,15 @@ function resetSquats() {
   squatsInput.value = "";
 }
 
+function resetdips() {
+  dipsTotal = 0;
+  localStorage.setItem("dipsTotal", dipsTotal);
+  dipscurrentNumber.textContent = dipsTotal;
+  dipsPercentage.textContent = `${dipsTotal}%`;
+  dipsProgressBar.style.width = 0;
+  dipsInput.value = "";
+}
+
 chinupsSubmit.addEventListener("click", () => {
   updateCount(chinupsInput, "chinups");
 });
@@ -205,4 +245,9 @@ squatsSubmit.addEventListener("click", () => {
   updateCount(squatsInput, "squats");
 })
 squatsReset.addEventListener("click", resetSquats)
+
+dipsSubmit.addEventListener("click", () => {
+  updateCount(dipsInput, "dips");
+})
+dipsReset.addEventListener("click", resetdips)
 
